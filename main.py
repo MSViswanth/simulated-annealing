@@ -18,10 +18,10 @@ class bcolors:
         self.FAIL = ''
         self.ENDC = ''
 
-answers = ['Y', 'y', 'yes', 'Yes', 'ye', 'yea']
+answers = ['Y', 'y', 'yes', 'Yes', 'ye', 'yea', '']
 
 def get_input_N():
-    N_ = input("Enter the value of N in [8, 100): ")
+    N_ = input(f"{bcolors.HEADER}Enter the value of N in [8, 100): {bcolors.ENDC}")
     if N_ == '': 
         print(f'{bcolors.OKBLUE}Using default value for N = 8.{bcolors.ENDC}')
         N_ = '8'
@@ -36,7 +36,7 @@ def get_input_N():
             return int(n_)
             # print("valid")
         else:
-            question = input(f'{bcolors.WARNING}Invalid input!!\nDo you want to correct it to {math.floor(n_)**2 - 1} (y/n)? {bcolors.ENDC}')
+            question = input(f'{bcolors.WARNING}Invalid input!!\nWould you like to correct to {math.floor(n_)**2 - 1} (default=yes) (y/n)? {bcolors.ENDC}')
             if(question in answers):
                 return int(n_)
             else:
@@ -55,7 +55,7 @@ def take_row_input(i):
     # print(f'i:{i}')
     for row_number in range(0, int(i/n)):
         prev_list.extend([item for item in N_puzzle[row_number]])
-    row = input(f'Row {int(i/n)+1}: ')
+    row = input(f'{bcolors.OKBLUE}Row {int(i/n)+1}: {bcolors.ENDC}')
     row = re.findall(r'\d+', row)
     row = [int(item) for item in row]
     if len(row) == n and len(list(set(row))) < n:
@@ -68,7 +68,6 @@ def take_row_input(i):
                         count_unique+=1
                     else:
                         print(f'{bcolors.WARNING}Warning: {j} is already present in previous rows.{bcolors.ENDC}')
-                        # take_row_input(i)
                 else:
                     print(f'{bcolors.WARNING}Warning: Row numbers cannot be more than {N}.{bcolors.ENDC}')
             if count_unique == n:
@@ -80,11 +79,25 @@ def take_row_input(i):
         print(f'{bcolors.WARNING}Warning: Invalid number of columns. Please enter row again with {n} columns.{bcolors.ENDC}')
         take_row_input(i)
 
+def gen_state(list):
+    generated_state = []
+    for number in list:
+        if number % n == 0:
+            row_list = []
+            generated_state.append(row_list)
+        if number == N:
+            row_list.append(0)
+        else:
+            row_list.append(number+1)
+    return generated_state
 
-print(f'{bcolors.OKBLUE}Building {N}-puzzle. Please enter the current state below (1 row at a time).{bcolors.ENDC}')
-for i in range(0, n**2):
-    if i % n == 0:
-        take_row_input(i)
-            
+# print(f'{bcolors.OKBLUE}Building {N}-puzzle. Please enter the current state below (1 row at a time).{bcolors.ENDC}')
+# for i in range(0, n**2):
+#     if i % n == 0:
+#         take_row_input(i)
+        
+goal_N_puzzle = gen_state(range(0, N+1))
 
+N_puzzle = [[6, 4, 7], [8, 5, 0], [3, 2, 1]]
 print(N_puzzle)
+print(goal_N_puzzle)
