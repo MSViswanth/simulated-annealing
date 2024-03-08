@@ -25,7 +25,11 @@ def get_input_N():
     if N_ == '': 
         print(f'{bcolors.OKBLUE}Using default value for N = 8.{bcolors.ENDC}')
         N_ = '8'
-    N = int(N_)
+    try:
+        N = int(N_)
+    except:
+        print(f"{bcolors.WARNING}Warning: Provided N value is not a number. Please try again.{bcolors.ENDC}")
+        return get_input_N()
     n_ = math.sqrt(N+1)
     if N >= 8 and N<100:
         if (n_ % math.floor(n_) == 0):
@@ -38,19 +42,19 @@ def get_input_N():
             else:
                 exit(f"{bcolors.FAIL}Exiting! Please run the program again.{bcolors.ENDC}")
     else:
-        print("Invalid input!! Please input N such that 8 <= N < 100")
+        print(f"{bcolors.WARNING}Warning: Invalid input!! Please input N such that 8 <= N < 100.{bcolors.ENDC}")
         return get_input_N()
 
 
 n = get_input_N()
-n_puzzle = []
+N_puzzle = []
 N = n**2 - 1
 
 def take_row_input(i):
     prev_list = []
     # print(f'i:{i}')
     for row_number in range(0, int(i/n)):
-        prev_list.extend([item for item in n_puzzle[row_number]])
+        prev_list.extend([item for item in N_puzzle[row_number]])
     row = input(f'Row {int(i/n)+1}: ')
     row = re.findall(r'\d+', row)
     row = [int(item) for item in row]
@@ -68,7 +72,7 @@ def take_row_input(i):
                 else:
                     print(f'{bcolors.WARNING}Warning: Row numbers cannot be more than {N}.{bcolors.ENDC}')
             if count_unique == n:
-                n_puzzle.append(row)
+                N_puzzle.append(row)
             else:
                 print(f"{bcolors.OKBLUE}Please enter the row numbers again.{bcolors.ENDC}")
                 take_row_input(i)        
@@ -76,10 +80,11 @@ def take_row_input(i):
         print(f'{bcolors.WARNING}Warning: Invalid number of columns. Please enter row again with {n} columns.{bcolors.ENDC}')
         take_row_input(i)
 
+
 print(f'{bcolors.OKBLUE}Building {N}-puzzle. Please enter the current state below (1 row at a time).{bcolors.ENDC}')
 for i in range(0, n**2):
     if i % n == 0:
         take_row_input(i)
             
 
-print(n_puzzle)
+print(N_puzzle)
