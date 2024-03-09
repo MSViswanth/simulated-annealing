@@ -1,5 +1,6 @@
 import math
 import re
+import random
 
 # Colors from blender.org - https://svn.blender.org/svnroot/bf-blender/trunk/blender/build_files/scons/tools/bcolors.py
 class bcolors:
@@ -46,7 +47,8 @@ def get_input_N():
         return get_input_N()
 
 
-n = get_input_N()
+# n = get_input_N()
+n = 3
 N_puzzle = []
 N = n**2 - 1
 
@@ -81,14 +83,15 @@ def take_row_input(i):
 
 def gen_state(list):
     generated_state = []
-    for number in list:
-        if number % n == 0:
+    row_list = []
+    for i, number in enumerate(list):
+        if i % n == 0:
             row_list = []
             generated_state.append(row_list)
-        if number == N:
+        if number == N+1:
             row_list.append(0)
         else:
-            row_list.append(number+1)
+            row_list.append(number)
     return generated_state
 
 # print(f'{bcolors.OKBLUE}Building {N}-puzzle. Please enter the current state below (1 row at a time).{bcolors.ENDC}')
@@ -96,8 +99,29 @@ def gen_state(list):
 #     if i % n == 0:
 #         take_row_input(i)
         
-goal_N_puzzle = gen_state(range(0, N+1))
+goal_N_puzzle = gen_state(range(1, N+2))
 
 N_puzzle = [[6, 4, 7], [8, 5, 0], [3, 2, 1]]
-print(N_puzzle)
-print(goal_N_puzzle)
+# print(N_puzzle)
+# print(goal_N_puzzle)
+
+
+def manhattan_distance(state_a, state_b):
+    state_a_dict = {}
+    state_b_dict = {}
+    for i in range(0,n):
+        for j in range(0,n):
+            state_a_dict[state_a[i][j]] = (i, j)
+            state_b_dict[state_b[i][j]] = (i, j)
+    man_dist = 0
+    for key in state_a_dict.keys():
+        pos_a = state_a_dict[key]
+        pos_b = state_b_dict[key]
+        man_dist += abs(pos_a[0] - pos_b[0]) + abs(pos_a[1] - pos_b[1])
+    return man_dist
+
+dist = manhattan_distance(goal_N_puzzle, N_puzzle)
+
+def gen_random_state():
+    return gen_state(random.sample(range(1,N+2), N+1))
+
