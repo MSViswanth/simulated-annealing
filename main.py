@@ -85,7 +85,7 @@ class Simulated_annealing:
             alpha = (t+1)/t_max
             t += 1
             T = 1 - alpha
-            print(f'{util.OKBLUE} Annealing...{util.animation[int(alpha*10)]} {round(alpha*100, 2)} %{util.ENDC}', end="\r", flush=True)
+            print(f'{util.OKBLUE} Annealing...{util.animation[int(alpha*10)]} {round(alpha*100, 1)} %{util.ENDC}', end="\r", flush=True)
             current_value = self.manhattan_distance(current_state, goal_state)
             if T == 0 or current_value == 0:
                 if T == 0:
@@ -120,7 +120,7 @@ puzzle_handler = Puzzle_handler()
 
 n, N, N_puzzle, goal_N_puzzle = puzzle_handler.get_puzzle_params()
 
-print(f'{util.WARNING}Solvability check... (Unreliable): {util.ENDC}', end='')
+print(f'{util.OKBLUE}Solvability check...{util.ENDC} {util.WARNING}(Unreliable): {util.ENDC}', end='')
 if puzzle_handler.is_solvable(N_puzzle):
     print(f"{util.OKGREEN}Solvable! :){util.ENDC}")
 else:
