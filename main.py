@@ -88,7 +88,10 @@ class Simulated_annealing:
             print(f'{util.OKBLUE} Annealing...{util.animation[int(alpha*10)]} {round(alpha*100, 2)} %{util.ENDC}', end="\r", flush=True)
             current_value = self.manhattan_distance(current_state, goal_state)
             if T == 0 or current_value == 0:
-                print(f'{util.OKBLUE}\n Annealing finished.{util.ENDC}')
+                if T == 0:
+                    print(f'{util.OKBLUE}\n Annealing finished.{util.ENDC}')
+                elif current_value == 0:
+                    print(f'{util.OKBLUE}\n Annealing stopped. Reached goal early.{util.ENDC}')
                 return count, t, current_state
             next_dirs = self.possible_dir(current_state)
             # print(next_dirs)
@@ -117,7 +120,7 @@ puzzle_handler = Puzzle_handler()
 
 n, N, N_puzzle, goal_N_puzzle = puzzle_handler.get_puzzle_params()
 
-print(f'{util.WARNING}Checking for solvability... (Unreliable for N >= 15): {util.ENDC}', end='')
+print(f'{util.WARNING}Solvability check... (Unreliable): {util.ENDC}', end='')
 if puzzle_handler.is_solvable(N_puzzle):
     print(f"{util.OKGREEN}Solvable! :){util.ENDC}")
 else:
@@ -134,7 +137,7 @@ output_data = [
     ['Value of final state', sim_ann.manhattan_distance(result, goal_N_puzzle)],
     ['Steps (next state is chosen)', count],
     ['Total times looped', t],
-    ['Time taken for SA', f'{round(end-start, 2)} sec']
+    ['Time taken for Annealing', f'{round(end-start, 2)} sec']
 ]
 
 for item in output_data:
