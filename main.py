@@ -143,16 +143,15 @@ for item in output_data:
 
 
 
-if(sim_ann.manhattan_distance(result, goal_N_puzzle) ==0):
-    puzzle_q = input(f"{util.WARNING}Would you like to see the steps taken to get to the goal (y/n) (default=y): {util.ENDC}")
-    if puzzle_q in util.answers:
-        steps = sim_ann.get_moves()
-        # steps.reverse()
-        print('\n'*n)
-        for step in steps:
-            for _ in range(n):
-                sys.stdout.write("\x1b[1A")  # cursor up one line
-                sys.stdout.write("\x1b[2K") 
-                time.sleep(0.0001)
-            puzzle_handler.print_puzzle(sim_ann.move_tile(N_puzzle, step))
+# if(sim_ann.manhattan_distance(result, goal_N_puzzle) ==0):
+#     puzzle_q = input(f"{util.WARNING}Would you like to see the steps taken to get to the goal (y/n) (default=y): {util.ENDC}")
+#     if puzzle_q in util.answers:
+#         steps = sim_ann.get_moves()
+#         print('\n'*n)
+#         for step in steps:
+#             for _ in range(n):
+#                 sys.stdout.write("\x1b[1A")  # cursor up one line
+#                 sys.stdout.write("\x1b[2K") 
+#                 time.sleep(0.0001)
+#             puzzle_handler.print_puzzle(sim_ann.move_tile(N_puzzle, step))
             
