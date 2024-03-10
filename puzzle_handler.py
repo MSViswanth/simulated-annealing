@@ -23,6 +23,20 @@ class Puzzle_handler:
     
     def get_puzzle_params(self):
         return self.__n, self.__N, self.__N_puzzle, self.__goal_N_puzzle
+    
+    def is_solvable(self, state):
+        state_list = self.gen_list(state)
+        inversions = 0
+        for i in range(0, len(state_list)):
+            for j in range(i+1, len(state_list)):
+                if(state_list[i] > state_list[j]):
+                    if state_list[j] != 0:
+                        inversions+=1
+        if inversions % 2 == 0:
+            return True
+        else:
+            return False
+
 
     def __get_input_N(self):
         N_ = input(f"{util.HEADER}Enter the value of N in [8, 100) (default=8): {
@@ -84,10 +98,10 @@ class Puzzle_handler:
                 self.__n} columns.{util.ENDC}')
             self.__take_row_input(i)
     
-    def gen_state(self, list):
+    def gen_state(self, state_list):
         generated_state = []
         row_list = []
-        for i, number in enumerate(list):
+        for i, number in enumerate(state_list):
             if i % self.__n == 0:
                 row_list = []
                 generated_state.append(row_list)
@@ -96,6 +110,12 @@ class Puzzle_handler:
             else:
                 row_list.append(number)
         return generated_state
+    
+    def gen_list(self, state):
+        gen_list = []
+        for i, number in enumerate(state):
+            gen_list.extend(number)
+        return gen_list
     
     def gen_random_state(self, N):
         """
@@ -113,10 +133,11 @@ class Puzzle_handler:
                 for k, arg in enumerate(args):
                     # print(arg)
                     for j in range(0, n):
-                        print(f'{{:>2d}}'.format(arg[i][j]), end=' ')
+                        print('{:>2d}'.format(arg[i][j]), end=' ')
                     print(f'{{:<{n*3}s}}'.format(''), end=' ')
                 print('')
         elif len(args) == 1:
+            print('\r', end='\r')
             for i in range(0, n):
                 for j in range(0, n):
                     print('{:>2d}'.format(args[0][i][j]), end=' ')
