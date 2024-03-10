@@ -8,6 +8,10 @@ class Puzzle_handler:
         self.__n = self.__get_input_N()
         self.__N = self.__n**2 - 1
         self.__N_puzzle = []
+        self.__take_input()
+        self.__goal_N_puzzle = self.gen_state(range(1, self.__N+2))
+
+    def __take_input(self):
         __gen_q = input(f'{util.OKBLUE}Would you like to generate an initial random state (y/n) (default=y): {util.ENDC}')
         if __gen_q in util.answers:
             self.__N_puzzle = self.gen_random_state(self.__N)
@@ -19,7 +23,6 @@ class Puzzle_handler:
             for i in range(0, self.__n**2):
                 if i % self.__n == 0:
                     self.__take_row_input(i)
-        self.__goal_N_puzzle = self.gen_state(range(1, self.__N+2))
     
     def get_puzzle_params(self):
         return self.__n, self.__N, self.__N_puzzle, self.__goal_N_puzzle
@@ -28,7 +31,7 @@ class Puzzle_handler:
         state_list = self.gen_list(state)
         inversions = 0
         for i in range(0, len(state_list)):
-            for j in range(i+1, len(state_list)):
+            for j in range(0, len(state_list)):
                 if(state_list[i] > state_list[j]):
                     if state_list[j] != 0:
                         inversions+=1
