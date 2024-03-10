@@ -28,13 +28,24 @@ class Puzzle_handler:
         return self.__n, self.__N, self.__N_puzzle, self.__goal_N_puzzle
     
     def is_solvable(self, state):
-        state_list = self.gen_list(state)
         inversions = 0
+        state_list = self.gen_list(state)
         for i in range(0, len(state_list)):
-            for j in range(0, len(state_list)):
+            for j in range(i+1, len(state_list)):
                 if(state_list[i] > state_list[j]):
                     if state_list[j] != 0:
                         inversions+=1
+        # for i in range(0, len(state)):
+        #     for j in range(0, len(state)-1):
+        #         if(state[i][j] > state[i][j+1]):
+        #             if state[i][j+1] != 0:
+        #                 inversions+=1
+        # for i in range(0, len(state)-1):
+        #     for j in range(0, len(state)):
+        #         if(state[i][j] > state[i+1][j]):
+        #             if state[i+1][1] != 0:
+        #                 inversions+=1
+                
         if inversions % 2 == 0:
             return True
         else:
