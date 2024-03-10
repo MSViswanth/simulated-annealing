@@ -45,11 +45,12 @@ class Puzzle_handler:
         #         if(state[i][j] > state[i+1][j]):
         #             if state[i+1][1] != 0:
         #                 inversions+=1
-                
-        if inversions % 2 == 0:
-            return True
+        if len(state) % 2 != 0:
+            return inversions % 2 == 0
         else:
-            return False
+            zero_pos = state_list.index(0)
+            row = int(zero_pos / len(state))
+            return row % 2 == 0
 
 
     def __get_input_N(self):
