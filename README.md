@@ -2,15 +2,15 @@
 ## Question 2
 ### Preparing to run
 This folder consists of three python files. 
-- `main.py`
-- `puzzle_handler.py`
-- `util.py`
+- `main.py` - This starts and perform the annealing.
+- `puzzle_handler.py` - This file contains a `PuzzleHandler` class that provides puzzle specific functions.
+- `util.py` - This has colors for the terminal and answers for prompts.
 
 All of them are required for a successful run.
 
-> **_NOTE:_** This program contains colored text which may not appear correctly on older terminals.
+> **_NOTE:_** This program contains colored text which may not appear correctly on older terminal applications.
 
-> **_On Windows:_** It is recommended to use newer version of terminal which can be obtained from [here](https://apps.microsoft.com/detail/9n0dx20hk701?hl=en-US&gl=US) if not installed.
+> **_On Windows:_** It is recommended to use newer version of terminal which can be obtained from [here](https://apps.microsoft.com/detail/9n0dx20hk701?hl=en-US&gl=US) if not already installed.
 
 ### Run
 Almost all the edge cases are considered. You cannot give a wrong input puzzle. 
@@ -53,7 +53,7 @@ This is a random 15-puzzle.
 ![](images/screen2.png)
 This is a random 24-puzzle.
 ![](images/screen3.png)
-In below two random 8-puzzles, solvability check says `Unsolvable`, but it was solved anyway.
+In the below two random 8-puzzles, solvability check says `Unsolvable`, but it was solved anyway. For some reason, the check is not accurate, which is why it is mentioned as unreliable.
 ![](images/screen4.png)
 ![](images/screen5.png)
 
