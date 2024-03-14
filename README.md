@@ -3,7 +3,7 @@
 ### Preparing to run
 This folder consists of three python files. 
 - `main.py` - This starts and performs the annealing.
-- `puzzle_handler.py` - This file contains a `PuzzleHandler` class that provides puzzle specific functions.
+- `puzzle_handler.py` - This file contains a `Puzzle_handler` class that provides puzzle specific functions.
 - `util.py` - This has colors for the terminal text and answers for prompts (Fun stuff).
 
 All of them are required for a successful run.
