@@ -12,15 +12,25 @@ from util import util
 
 
 class Simulated_annealing:
+    """
+    Simulated_annealing class contains the heuristic which determines the value of a state, the `simulated_annealing` function that performs annealing.
+    It also has a couple puzzle related functions which need to be moved.
+    """
     def __init__(self) -> None:
         self.__moves = []
     
     def get_moves(self):
+        """
+        Returns the moves taken from initial state to reach the final state.
+        """
         if self.__moves == []:
-            print("Please run simulated annealing.")
+            print("Please run the simulated annealing method.")
         return self.__moves
     
     def manhattan_distance(self, state_a, state_b):
+        """
+        Returns manhattan distance between two puzzle states.
+        """
         state_a_dict = {}
         state_b_dict = {}
         for i in range(0, len(state_a)):
@@ -35,7 +45,10 @@ class Simulated_annealing:
         return man_dist
     
     def possible_dir(self, state):
-        state_list = puzzle_handler.gen_list(state)
+        """
+        Returns the possible directions that the tiles can move in a given state.
+        """
+        state_list = puzzle_handler.gen_state_list(state)
         zero_pos = state_list.index(0)
         row = int(zero_pos/n)
         col = zero_pos%n
@@ -51,7 +64,10 @@ class Simulated_annealing:
         return dirs
     
     def move_tile(self, state: list, move):
-        state_list = puzzle_handler.gen_list(state)
+        """
+        Takes state and direction as input and moves the tile in that state and returns the updated state.
+        """
+        state_list = puzzle_handler.gen_state_list(state)
         zero_pos = state_list.index(0)
         n = len(state)
         row = int(zero_pos/n)
@@ -69,11 +85,10 @@ class Simulated_annealing:
 
     def simuluated_annealing(self,initial_state, goal_state):
         """
-        Performs simulated annealing.
+        Performs simulated annealing. Takes initial state and the goal state.
         """
         current_state:list = initial_state
         n = len(current_state)
-        N = n**2 - 1
         t = 0
         count = 0
         T = 1
@@ -128,13 +143,13 @@ else:
 sim_ann = Simulated_annealing()
 
 start = time.time()
-count, t, result = sim_ann.simuluated_annealing(initial_state=N_puzzle, goal_state=goal_N_puzzle)
+count, t, final = sim_ann.simuluated_annealing(initial_state=N_puzzle, goal_state=goal_N_puzzle)
 end = time.time()
-puzzle_handler.print_puzzle(N_puzzle, result)
+puzzle_handler.print_puzzle(N_puzzle, final)
 
 output_data = [
     ['Value of initial state', sim_ann.manhattan_distance(N_puzzle, goal_N_puzzle)],
-    ['Value of final state', sim_ann.manhattan_distance(result, goal_N_puzzle)],
+    ['Value of final state', sim_ann.manhattan_distance(final, goal_N_puzzle)],
     ['Steps (next state is chosen)', count],
     ['Total times looped', t],
     ['Time taken for Annealing', f'{round(end-start, 2)} sec']
