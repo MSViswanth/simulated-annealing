@@ -4,6 +4,10 @@ from util import util
 import math
 
 class Puzzle_handler:
+    """
+    Puzzle_handler handles various puzzle related stuff. Initializing this object should allow it take the input N-puzzle.
+    The inputs are made available via `get_puzzle_params` method.
+    """
     def __init__(self) -> None:
         self.__n = self.__get_input_N()
         self.__N = self.__n**2 - 1
@@ -12,6 +16,9 @@ class Puzzle_handler:
         self.__goal_N_puzzle = self.gen_state(range(1, self.__N+2))
 
     def __take_input(self):
+        """
+        Receives the input N-puzzle state.
+        """
         __gen_q = input(f'{util.OKBLUE}Would you like to generate an initial random state (y/n) (default=y): {util.ENDC}')
         if __gen_q in util.answers:
             self.__N_puzzle = self.gen_random_state(self.__N)
@@ -25,11 +32,19 @@ class Puzzle_handler:
                     self.__take_row_input(i)
     
     def get_puzzle_params(self):
+        """
+        Returns size of the puzzle `n`, `N`, and input N-puzzle, and the goal N-puzzle.
+
+        Eg. For N = 8, n = 3
+        """
         return self.__n, self.__N, self.__N_puzzle, self.__goal_N_puzzle
     
     def is_solvable(self, state):
+        """
+        Checks if a given N-puzzle state is solvable.
+        """
         inversions = 0
-        state_list = self.gen_list(state)
+        state_list = self.gen_state_list(state)
         for i in range(0, len(state_list)):
             for j in range(i+1, len(state_list)):
                 if(state_list[i] > state_list[j]):
@@ -54,6 +69,9 @@ class Puzzle_handler:
 
 
     def __get_input_N(self):
+        """
+        Receives the input `N`.
+        """
         N_ = input(f"{util.HEADER}Enter the value of N in [8, 100) (default=8): {
                 util.ENDC}")
         if N_ == '':
@@ -82,6 +100,9 @@ class Puzzle_handler:
 
 
     def __take_row_input(self, i):
+        """
+        Receives and processes the input given in a row.
+        """
         prev_list = []
         # print(f'i:{i}')
         for row_number in range(0, int(i/self.__n)):
@@ -114,6 +135,9 @@ class Puzzle_handler:
             self.__take_row_input(i)
     
     def gen_state(self, state_list):
+        """
+        Takes a `state list` and returns an N-puzzle `state`.
+        """
         generated_state = []
         row_list = []
         for i, number in enumerate(state_list):
@@ -126,19 +150,25 @@ class Puzzle_handler:
                 row_list.append(number)
         return generated_state
     
-    def gen_list(self, state):
-        gen_list = []
-        for i, number in enumerate(state):
-            gen_list.extend(number)
-        return gen_list
+    def gen_state_list(self, state):
+        """
+        Takes an N-puzzle `state` as input and returns a `state list`.
+        """
+        state_list = []
+        for number in state:
+            state_list.extend(number)
+        return state_list
     
     def gen_random_state(self, N):
         """
-        Gets random state for the N-puzzle.
+        Takes `N` as input and returns a random `state` for the N-puzzle.
         """
         return self.gen_state(random.sample(range(1, N+2), N+1))
 
     def print_puzzle(self,*args):
+        """
+        Takes one or two N-puzzle states as input and prints them on to the terminal.
+        """
         title = ['Initial', 'Final']
         n = len(args[0])
         if (len(args) == 2):
