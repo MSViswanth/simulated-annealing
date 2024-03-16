@@ -12,6 +12,11 @@ All of them are required for a successful run.
 
 > **_On Windows:_** It is recommended to use newer version of terminal which can be obtained from [here](https://apps.microsoft.com/detail/9n0dx20hk701?hl=en-US&gl=US) if not already installed.
 
+For cython version, `cython` package needs to be installed which can be done with the following command.
+```sh
+pip install cython
+```
+
 ### Run
 Almost all the edge cases are considered. You should not be able to give a wrong input puzzle. 
 
@@ -19,13 +24,14 @@ Just execute the following command.
 ```sh
 python main.py
 ```
-And follow the instructions.
 
 To execute the cython version, run the following two commands.
 ```sh
 python setup.py build_ext --inplace
 python main_cython.py
 ```
+
+And follow the instructions.
 
 
 ### Solvability
