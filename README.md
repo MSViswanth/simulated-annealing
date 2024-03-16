@@ -21,6 +21,12 @@ python main.py
 ```
 And follow the instructions.
 
+To execute the cython version, run the following two commands.
+```sh
+python setup.py build_ext --inplace
+python main_cython.py
+```
+
 
 ### Solvability
 There is puzzle solvability check that has been implemented. It counts the number of inversions present in a puzzle state, and returns true or false when certain conditions are met.
