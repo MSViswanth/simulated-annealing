@@ -65,11 +65,5 @@ Example runs.
 ![](images/screen3.png)
 ![](images/screen4.png)
 ![](images/screen5.png)
-In the example below, solvability check says `Unsolvable` but it was solved anyway, hence the unreliable note.
-![](images/screen8.png)
-More example runs.
-![](images/screen6.png)
-![](images/screen7.png)
-![](images/screen9.png)
 
 > Some of the test puzzles are taken from this [Sliding Toys](https://sliding.toys/) website.
